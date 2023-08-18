@@ -31,4 +31,4 @@ s.Start()
 ## Environment Configuration ##
 | Key | Description | Example | 
 | --- | ----------- | ------- | 
-| SERVER_ADDR | Port to start HTTP server | :8080 (default)
+| APP_SERVER_ADDR | Port to start HTTP server | :8080 (default)
