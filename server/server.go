@@ -27,10 +27,6 @@ func (s *Server) Stop() error {
 func NewServer(customizer ServerCustomizer) *Server {
 	cfg := config.New()
 	router := gin.Default()
-	customizer.Register(router)
-
-	router.Run()
-
 	s := &Server{
 		server: &http.Server{
 			Addr:    cfg.ServerAddr,
@@ -38,6 +34,8 @@ func NewServer(customizer ServerCustomizer) *Server {
 		},
 		Engine: router,
 	}
+
+	customizer.Register(s)
 
 	return s
 }

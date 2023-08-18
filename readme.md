@@ -1,17 +1,20 @@
 # Srv
 A library for communicate with HTTP protocol.
 
-## Install
+## Installation
+```
+go get github.com/hokkung/srv
+```
 
-## Getting Started 
-1. Prepair a customizer for register a route
+## Getting Started
+1. Prepair a customizer to register a route
 ```
 type ServerCustomizer struct {
 
 }
 
-func (c *ServerCustomizer) Register(e *gin.Engine) {
-    e.GET("/ping", func(c *gin.Context) {
+func (c *ServerCustomizer) Register(s *server.Server) {
+    s.Engine.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",
 		})
@@ -28,5 +31,4 @@ s.Start()
 ## Environment Configuration ##
 | Key | Description | Example | 
 | --- | ----------- | ------- | 
-| SERVER_ADDR | Port to start HTTP server | :8080
-
+| SERVER_ADDR | Port to start HTTP server | :8080 (default)
