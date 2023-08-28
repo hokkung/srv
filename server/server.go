@@ -39,3 +39,7 @@ func NewServer(customizer ServerCustomizer) *Server {
 
 	return s
 }
+
+func ProvideServer(customizer ServerCustomizer) *Server {
+	return NewServer(customizer)
+}
