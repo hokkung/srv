@@ -4,7 +4,7 @@ import (
 	"github.com/kelseyhightower/envconfig"
 )
 
-const APP_PREFIX string = "APP"
+const APP_PREFIX string = "APP_SRV"
 
 type Configuration struct {
 	ServerAddr string `envconfig:"SERVER_ADDR" default:":8080"`

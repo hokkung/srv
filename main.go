@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -21,5 +22,8 @@ func (custom *Custom) Register(s *server.Server) {
 func main() {
 	cus := &Custom{}
 	s := server.NewServer(cus)
-	s.Start()
+	err := s.Start()
+	if err != nil {
+		fmt.Println(err)
+	}
 }

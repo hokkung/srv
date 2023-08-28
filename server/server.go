@@ -1,6 +1,7 @@
 package server
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -20,8 +21,11 @@ func (s *Server) Start() error {
 	return nil
 }
 
-func (s *Server) Stop() error {
-	return s.server.Close()
+func (s *Server) Stop() {
+	err := s.server.Close()
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 func NewServer(customizer ServerCustomizer) *Server {
@@ -40,6 +44,7 @@ func NewServer(customizer ServerCustomizer) *Server {
 	return s
 }
 
-func ProvideServer(customizer ServerCustomizer) *Server {
-	return NewServer(customizer)
+func ProvideServer(customizer ServerCustomizer) (*Server, func(), error) {
+	srv := NewServer(customizer)
+	return srv, srv.Stop, nil
 }
