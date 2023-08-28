@@ -21,8 +21,12 @@ func (custom *Custom) Register(s *server.Server) {
 
 func main() {
 	cus := &Custom{}
-	s := server.NewServer(cus)
-	err := s.Start()
+	s, err := server.NewServer(cus)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	err = s.Start()
 	if err != nil {
 		fmt.Println(err)
 	}

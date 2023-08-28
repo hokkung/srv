@@ -28,10 +28,10 @@ func (s *Server) Stop() {
 	}
 }
 
-func NewServer(customizer ServerCustomizer) *Server {
+func NewServer(customizer ServerCustomizer) (*Server, error) {
 	cfg := config.New()
 	router := gin.Default()
-	s := &Server{
+	server := &Server{
 		server: &http.Server{
 			Addr:    cfg.ServerAddr,
 			Handler: router,
@@ -39,12 +39,15 @@ func NewServer(customizer ServerCustomizer) *Server {
 		Engine: router,
 	}
 
-	customizer.Register(s)
+	customizer.Register(server)
 
-	return s
+	return server, nil
 }
 
 func ProvideServer(customizer ServerCustomizer) (*Server, func(), error) {
-	srv := NewServer(customizer)
+	srv, err := NewServer(customizer)
+	if err != nil {
+		return nil, func() {}, err
+	}
 	return srv, srv.Stop, nil
 }
